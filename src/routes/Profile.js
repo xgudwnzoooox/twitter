@@ -10,10 +10,11 @@ import {
   const auth = getAuth();
 
 const Profile = () => {
-  // const history = useHistory();
-  const onLogOutClick = () => {
-    signOut(auth);
-    // history.push("/");
+  const history = useHistory();
+  const onLogOutClick = async() => {
+    await signOut(auth);
+    
+    history.push("/");
   };
   return (
     <>

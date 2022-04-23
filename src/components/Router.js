@@ -7,16 +7,16 @@ import Navigation from './Navigation';
 
 
 
-const AppRouter = ({ isLoggedIn }) => {
-  
+const AppRouter = ({ isLoggedIn}) => {
+
 
   return(
+    
     <Router>
       {isLoggedIn && <Navigation />}
       <Switch>
         {isLoggedIn ? (
           <>
-            
             <Route exact path="/">
               <Home />
             </Route>
