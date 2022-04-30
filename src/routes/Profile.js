@@ -7,7 +7,7 @@ import {
   signOut,
   } from 'firebase/auth';
 
-  const auth = getAuth();
+const auth = getAuth();
 
 const Profile = () => {
   const history = useHistory();
