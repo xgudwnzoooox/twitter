@@ -1,5 +1,5 @@
 import Nweet from "components/Nweet";
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import {
   addDoc,
   collection,
@@ -7,7 +7,9 @@ import {
   query,
   orderBy,
   } from "firebase/firestore";
+import { ref, uploadString } from "@firebase/storage";
 import React, { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Home = ({userObj}) => {
   const [nweet, setNweet] = useState("");
@@ -17,14 +19,18 @@ const Home = ({userObj}) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const docRef = await addDoc(collection(dbService, "nweets"), {
-      text: nweet,
-      createdAt: Date.now(),
-      creatorId : userObj.uid,
-    });
+    const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+    const response = await uploadString(fileRef, attachment, "data_url");
+    console.log(response);
 
-    setNweet("");
+    // const docRef = await addDoc(collection(dbService, "nweets"), {
+    //   text: nweet,
+    //   createdAt: Date.now(),
+    //   creatorId : userObj.uid,
+    // });
+    // setNweet("");
   };
+
   const onChange = ({ target: { value } }) => {
     setNweet(value);
   };
