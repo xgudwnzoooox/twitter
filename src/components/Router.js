@@ -7,7 +7,7 @@ import Navigation from './Navigation';
 
 
 
-const AppRouter = ({ isLoggedIn, userObj}) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj, setScreen}) => {
 
 
   return(
@@ -21,7 +21,7 @@ const AppRouter = ({ isLoggedIn, userObj}) => {
               <Home userObj={userObj}/>
             </Route>
             <Route exact path="/profile">
-              <Profile userObj = { userObj }/>
+              <Profile userObj = { userObj} refreshUser = {refreshUser} setScreen = {setScreen} />
             </Route>
             {/* <Redirect from = '*' to = "/" /> */}
           </>

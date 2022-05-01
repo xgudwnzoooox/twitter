@@ -7,16 +7,20 @@ import {
   signOut,
   updateProfile,
   } from 'firebase/auth';
+import { ref } from "firebase/storage";
 
 const auth = getAuth();
 
-const Profile = ({ userObj }) => {
+const Profile = ({ userObj, refreshUser, setScreen }) => {
   const history = useHistory();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
   const onLogOutClick = () => {
     signOut(auth);
     history.push("/");
+    setScreen((prev)=>{
+      prev++
+    })
   };
   
   const onChange = (event) => {
@@ -30,8 +34,10 @@ const Profile = ({ userObj }) => {
     event.preventDefault();
     if (userObj.displayName !== newDisplayName) {
       await updateProfile(
-        userObj, 
+        authService.currentUser, 
         { displayName: newDisplayName });
+      
+      refreshUser();
       }
     }
 
