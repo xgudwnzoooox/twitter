@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { authService} from "fbase";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   getAuth,
@@ -12,12 +12,12 @@ import { ref } from "firebase/storage";
 const auth = getAuth();
 
 const Profile = ({ userObj, refreshUser, setScreen }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
   const onLogOutClick = () => {
     signOut(auth);
-    history.push("/");
+    navigate("/");
     setScreen((prev)=>{
       prev++
     })
