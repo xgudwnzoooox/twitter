@@ -2,13 +2,23 @@ import React, { useState, useEffect } from "react";
 import AppRouter from "components/Router";
 import { authService } from "fbase";
 
+
+
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
   
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      user ? setUserObj(user) : setUserObj(null);
+      if(user){
+        setUserObj(user);
+        if(user.displayName === null){
+          const name = user.email.split("@")[0];
+          user.displayName = name;
+        }
+      }else{
+        setUserObj(null);
+      }
       setInit(true);
     });
   }, []);
